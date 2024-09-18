@@ -29,6 +29,10 @@ class Day:
                 shifts = self.screenprinting_shifts
         return shifts
 
-    def book(self, shift_time: ShiftTime, technique: Technique):
+    def book(self, shift_time: ShiftTime, technique: Technique, unbook: bool = False):
         shift = self.get_shifts(technique)[shift_time]
-        shift.book(technique)
+        method = shift.unbook if unbook else shift.book
+        method(technique)
+
+    def unbook(self, *args):
+        self.book(*args, unbook=True)
